@@ -1,5 +1,7 @@
 ﻿using System.Diagnostics;
+using System.IO;
 using System.Text;
+using TaskBuilder.Properties;
 
 namespace TaskBuilder
 {
@@ -7,7 +9,9 @@ namespace TaskBuilder
     {
         static void Main()
         {
-            //Создание объекта класса, отвечающего за цветной вывод консоли
+
+
+
             var extConsole = new ExtConsoleTextColor();
 
             //Пользователь выбирает путь до файла
@@ -85,7 +89,7 @@ namespace TaskBuilder
         static string ChooseFileName()
         {
             Console.WriteLine("Добрый день! Прошу указать имя файла для работы:");
-            Console.WriteLine(" 1 - Формальные \t\n 2 - Внутренние \t\n 3 - Team3 \t\n 4 - Team4 \t\n 5 - Team5 \t\n 6 - Team6 \t\n 7 - Team7 \t\n 8 - Team8 \t\n\n 0 - Указать путь до файла\n\n");
+            Console.WriteLine(" 1 - Формальные \t\n 2 - Внутренние \t\n 3 - Team3 \t\n 4 - Team4 \t\n 5 - Team5 \t\n 6 - Team6 \t\n 7 - Team7 \t\n 8 - Team8 \t\n\n 0 - Указать путь до файла\n\n \t\n\n Help - открыть инструкцию по пользованию ПО\n\n");
             string filepath = Console.ReadLine();
             Console.WriteLine(filepath);
 
@@ -119,6 +123,14 @@ namespace TaskBuilder
                     Console.WriteLine(@"Прошу указать путь до файла. Например: C:\temp\MyCsvFile.csv");
                     filepath = Console.ReadLine();
                     return filepath;
+                case "Help":
+                    //System.Diagnostics.Process.Start(path);
+                    filepath =$"{GetExeLocation()}\\Manual_dox.docx";
+                    var Manual = Resources.Manual_dox;
+                    File.WriteAllBytes(filepath, Manual);
+                    Process.Start(new ProcessStartInfo(filepath) { UseShellExecute = true });
+                    Environment.Exit(0);
+                    return null;
                 default:
                     Console.WriteLine("Что-то пошло не так, прошу выбрать заново выбрать вариантов");
                     Console.WriteLine("1 - Формальные \t 2 - Внутренние \t 3 - Team3 \t 4 - Team4 \t 5 - Team5 \t 6 - Team6 \t 7 - Team7 \t 8 - Team8 \t  0 - укзать путь до файла");
