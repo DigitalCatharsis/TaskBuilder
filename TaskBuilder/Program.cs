@@ -1,10 +1,11 @@
-﻿using System.Text;
+﻿using System.Diagnostics;
+using System.Text;
 
 namespace TaskBuilder
 {
     internal class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             //Создание объекта класса, отвечающего за цветной вывод консоли
             var extConsole = new ExtConsoleTextColor();
@@ -20,7 +21,7 @@ namespace TaskBuilder
             }
 
             //Проверка, что файл не занят
-            FileInfo fi1 = new FileInfo(filepath);
+            var fi1 = new FileInfo(filepath);
 
             while (IsFileLocked(fi1) == true)
             {
@@ -76,7 +77,9 @@ namespace TaskBuilder
 
         static string GetExeLocation()
         {
-            return Environment.ProcessPath;
+            var path = Environment.ProcessPath;
+            path = Environment.ProcessPath.Substring(0, path.LastIndexOf('\\'));
+            return path;
         }
 
         static string ChooseFileName()
@@ -150,7 +153,7 @@ namespace TaskBuilder
             //Выборы подкатегорий
             extConsole.WriteLine(ConsoleColor.Green, "Запуск форматора");
 
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
 
             foreach (var item in results)
             {
@@ -174,7 +177,7 @@ namespace TaskBuilder
                         {
                             sb.Append($"{item.Key} \n \t {(results[item.Key][elem])} \n");
                         }
-                        sb.Append("\n");
+                        sb.Append('\n');
                         break;
                     }
                     catch
@@ -211,15 +214,16 @@ namespace TaskBuilder
         static void CreateWriteTxt(ExtConsoleTextColor extConsole, StringBuilder sb)
         {
             var date = ((DateTime.Now).ToString()).Replace(":", ".");
-            var path = ($"{GetExeLocation()}\\Result {date}.txt");
+            var path = ($"{GetExeLocation()}\\Result {date}.doc");
             File.WriteAllText(path, sb.ToString());
 
             extConsole.WriteLine(ConsoleColor.Green, $"Файл записан по пути: {path}");
 
             extConsole.WriteLine(ConsoleColor.Green, "Открываю файл");
 
-            // Open the stream and read it back.
-            System.Diagnostics.Process.Start(path);
+            //open file
+            Process.Start(new ProcessStartInfo(path) { UseShellExecute = true });
+            //System.Diagnostics.Process.Start(path);
         }
 
 
@@ -246,7 +250,3 @@ namespace TaskBuilder
         }
     }
 }
-
-
-
-

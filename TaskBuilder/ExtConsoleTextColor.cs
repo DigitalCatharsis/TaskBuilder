@@ -2,7 +2,6 @@
 
 namespace TaskBuilder
 {
-
     public class ExtConsoleTextColor
     {
 
