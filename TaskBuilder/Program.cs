@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using System.IO;
 using System.Text;
 using TaskBuilder.Properties;
 
@@ -9,7 +8,6 @@ namespace TaskBuilder
     {
         static void Main()
         {
-
 
 
             var extConsole = new ExtConsoleTextColor();
@@ -24,7 +22,7 @@ namespace TaskBuilder
                 filepath = ChooseFileName();
             }
 
-            //Проверка, что файл не занят
+            //Проверка, что файл не занят1
             var fi1 = new FileInfo(filepath);
 
             while (IsFileLocked(fi1) == true)
@@ -39,7 +37,7 @@ namespace TaskBuilder
             //Считывание файла
             extConsole.WriteLine(ConsoleColor.Green, "Считывание файла...");
 
-            var dataReader = new DatabaseReader();
+            var dataReader = new DatabaseReader(ChooseDelimeter(extConsole));
             var results = dataReader.ReadData(filepath);
 
             //генерируем preview
@@ -89,7 +87,7 @@ namespace TaskBuilder
         static string ChooseFileName()
         {
             Console.WriteLine("Добрый день! Прошу указать имя файла для работы:");
-            Console.WriteLine(" 1 - Формальные \t\n 2 - Внутренние \t\n 3 - Team3 \t\n 4 - Team4 \t\n 5 - Team5 \t\n 6 - Team6 \t\n 7 - Team7 \t\n 8 - Team8 \t\n\n 0 - Указать путь до файла\n\n \t\n\n Help - открыть инструкцию по пользованию ПО\n\n");
+            Console.WriteLine(" 1 - Формальные \t\n 2 - Внутренние \t\n 3 - Team3 \t\n 4 - Team4 \t\n 5 - Team5 \t\n 6 - Team6 \t\n 7 - Team7 \t\n 8 - Team8 \t\n\n 0 - Указать путь до файла\n\n \t\n\n Help - открыть инструкцию по пользованию ПО \n\n\t\n\n Converter - создать в каталоге с программой конвертер кодировки для фалов Microsoft Office\n\n");
             string filepath = Console.ReadLine();
             Console.WriteLine(filepath);
 
@@ -123,9 +121,15 @@ namespace TaskBuilder
                     Console.WriteLine(@"Прошу указать путь до файла. Например: C:\temp\MyCsvFile.csv");
                     filepath = Console.ReadLine();
                     return filepath;
+                case "Converter":
+                    var scriptPath = $"{GetExeLocation()}\\FileConverter.ps1";
+                    var script = Resources.FileConverter;
+                    File.WriteAllBytes(scriptPath, script);
+                    Console.WriteLine("Конвертер создан");
+                    Environment.Exit(0);
+                    return null;
                 case "Help":
-                    //System.Diagnostics.Process.Start(path);
-                    filepath =$"{GetExeLocation()}\\Manual_dox.docx";
+                    filepath = $"{GetExeLocation()}\\Manual_dox.docx";
                     var Manual = Resources.Manual_dox;
                     File.WriteAllBytes(filepath, Manual);
                     Process.Start(new ProcessStartInfo(filepath) { UseShellExecute = true });
@@ -259,6 +263,24 @@ namespace TaskBuilder
 
             //file is not locked
             return false;
+        }
+
+        static string ChooseDelimeter(ExtConsoleTextColor extConsole) 
+        {
+            extConsole.WriteLine(ConsoleColor.Red, "Укажите разделитель");
+            extConsole.WriteLine(ConsoleColor.Red, $"; для документов созданных в Microsoft Office , для нормальных документов");
+            var temp = Console.ReadLine();
+
+            switch (temp)
+            {
+                case ";":
+                    return temp;
+                case ",":
+                    return temp;
+                default:
+                    Console.WriteLine("Что-то пошло не так, требуется заново выбрать один из вариантов");
+                    return ChooseDelimeter(extConsole);
+            }
         }
     }
 }

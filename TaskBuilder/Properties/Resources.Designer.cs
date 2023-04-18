@@ -63,20 +63,20 @@ namespace TaskBuilder.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] Manual_dox {
+        internal static byte[] FileConverter {
             get {
-                object obj = ResourceManager.GetObject("Manual_dox", resourceCulture);
+                object obj = ResourceManager.GetObject("FileConverter", resourceCulture);
                 return ((byte[])(obj));
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;
-        ///&lt;?mso-application progid=&quot;Word.Document&quot;?&gt;&lt;w:wordDocument xmlns:w=&quot;http://schemas.microsoft.com/office/word/2003/wordml&quot; xmlns:wx=&quot;http://schemas.microsoft.com/office/word/2003/auxHint&quot; xmlns:o=&quot;urn:schemas-microsoft-com:office:office&quot; xmlns:aml=&quot;http://schemas.microsoft.com/aml/2001/core&quot; xmlns:dt=&quot;uuid:C2F41010-65B3-11d1-A29F-00AA00C14882&quot; xmlns:v=&quot;urn:schemas-microsoft-com:vml&quot; xmlns:w10=&quot;urn:schemas-microsoft-com:office:word&quot; xmlns:number=&quot;urn:oasi [rest of string was truncated]&quot;;.
+        ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static string Manual_xml {
+        internal static byte[] Manual_dox {
             get {
-                return ResourceManager.GetString("Manual_xml", resourceCulture);
+                object obj = ResourceManager.GetObject("Manual_dox", resourceCulture);
+                return ((byte[])(obj));
             }
         }
     }
