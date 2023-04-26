@@ -1,0 +1,13 @@
+diff a/TaskBuilder/DatabaseReader.cs b/TaskBuilder/DatabaseReader.cs	(rejected hunks)
+@@ -46,7 +46,11 @@
+                         records.Add(record);
+                     }
+                 }
++<<<<<<< HEAD
+                 catch { Console.WriteLine("Ошибка чтения файла. Убедитесь, что категории файла указаны верно"); Console.ReadKey(); Environment.Exit(0); }
++=======
++                catch { Console.WriteLine("Ошибка чтения файла. Убедитесь, что категории файла указаны верно"); }
++>>>>>>> origin/master
+ 
+                 try
+                 {

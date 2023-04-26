@@ -28,6 +28,7 @@ namespace TaskBuilder
                 csv.Read();
                 try { csv.ReadHeader(); }
                 catch { Console.WriteLine("Чтения. Убедитесь, что разделитель выбран правильно, и файл не поврежден"); Console.ReadKey(); Environment.Exit(0); }
+
                 try
                 {
                     while (csv.Read())
@@ -70,7 +71,6 @@ namespace TaskBuilder
                     }
                 }
                 catch { Console.WriteLine("Ошибка добавления подкатегории. Убедитесь, но номера в подкатегории не совпадают"); Console.ReadKey(); Environment.Exit(0); }
-
                 return dict;
             }
         }
